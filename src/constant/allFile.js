@@ -1,0 +1,1 @@
+export const CONSTFILE = "http://52.66.199.90:8081"

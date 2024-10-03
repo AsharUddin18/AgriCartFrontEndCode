@@ -1,0 +1,323 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Hero Section */
+.heroSection {
+  position: relative;
+  text-align: center;
+  color: white;
+  overflow: hidden;
+}
+
+.heroImage {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  filter: brightness(70%);
+}
+
+.heroText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: fadeIn 2s ease-in-out;
+}
+
+.heroText h1 {
+  font-size: 3em;
+  margin: 0;
+}
+
+.heroText p {
+  font-size: 1.5em;
+}
+
+.heroButton {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2em;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+}
+
+.heroButton:hover {
+  background-color: #218838;
+}
+
+/* Features Section */
+.features {
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.featuresContainer {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.feature {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  width: 300px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.feature:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.feature h3 {
+  margin-top: 0;
+}
+
+.feature img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+/* Promo Section */
+.promoSection {
+  padding: 40px 20px;
+  background: url('../images/banner.jpg') no-repeat center center;
+  background-size: cover;
+  text-align: center;
+  color: white;
+}
+
+.promoButton {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2em;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.promoButton:hover {
+  background-color: #c82333;
+}
+
+/* Categories Section */
+.categoriesSection {
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+}
+
+.categoriesContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.categoryCard {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.categoryCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.categoryCard img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.categoryButton {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.categoryButton:hover {
+  background-color: #218838;
+}
+
+/* Recommendations Section */
+.recommendationsSection {
+  padding: 40px 20px;
+  background-color: #e9ecef;
+}
+
+.recommendationsContainer {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.recommendationCard {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  width: 300px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.recommendationCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.recommendationCard img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.recommendationButton {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.recommendationButton:hover {
+  background-color: #218838;
+}
+
+/* Farmer Recommendations Section */
+.farmerRecommendations {
+  padding: 40px 20px;
+  background-color: #fff3cd;
+  text-align: center;
+}
+
+.testimonialsContainer {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.testimonial {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  width: 300px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.testimonial:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.shareButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.shareButton:hover {
+  background-color: #0056b3;
+}
+
+/* Trust Section */
+.trustSection {
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.certifications img {
+  width: 100px;
+  height: auto;
+  margin: 0 10px;
+}
+
+.customerReviews {
+  margin-top: 20px;
+}
+
+.customerReviews h3 {
+  margin-top: 0;
+}
+
+/* Additional Features Section */
+.additionalFeatures {
+  padding: 40px 20px;
+  background-color: #e9ecef;
+  text-align: center;
+}
+
+.blogContainer {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.blogPost {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  width: 300px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.blogPost:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.blogButton {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.blogButton:hover {
+  background-color:aqua;
+}
