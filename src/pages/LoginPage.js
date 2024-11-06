@@ -66,7 +66,7 @@ function SignIn() {
       localStorage.setItem('token', result.token);
 
       // Redirect the user to the dashboard or another page after successful login
-      window.location.href = '/dashboard';
+      window.location.href = '/home';
     } catch (error) {
       // Handle any errors (e.g., wrong credentials, network issues)
       console.error('Error during login:', error);
