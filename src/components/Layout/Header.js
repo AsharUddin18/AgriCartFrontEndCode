@@ -1,64 +1,124 @@
-import React, { useState } from 'react';
-import { AppBar, Box, IconButton, Toolbar, Typography, TextField, InputAdornment, Drawer } from '@mui/material';
-import AgricultureIcon from '@mui/icons-material/Agriculture';
-import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from 'react-router-dom';
-import SearchIcon from '@mui/icons-material/Search';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import '../../styles/HeaderStyle.css';
+import React, { useState } from "react";
+import {
+  AppBar,
+  Box,
+  IconButton,
+  Toolbar,
+  Typography,
+  TextField,
+  InputAdornment,
+  Drawer,
+  Menu,
+  MenuItem,
+} from "@mui/material";
+import AgricultureIcon from "@mui/icons-material/Agriculture";
+import MenuIcon from "@mui/icons-material/Menu";
+import { Link, useNavigate } from "react-router-dom";
+import SearchIcon from "@mui/icons-material/Search";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import { useAuth } from "../../pages/AuthContext"; // AuthContext import
+import "../../styles/HeaderStyle.css";
 
 const Header = () => {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [mobileOpen, setMobileOpen] = useState(false); // Mobile drawer state
+  const [searchQuery, setSearchQuery] = useState(""); // Search input
+  const [anchorEl, setAnchorEl] = useState(null); // For profile dropdown
+  const { isLoggedIn, logout } = useAuth(); // Get auth state and logout function
+  const navigate = useNavigate(); // For navigation
 
-  // Handle menu click
+  // Toggle mobile drawer
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
+  // Open/close profile dropdown
+  const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
-  // Menu drawer
+  const handleProfileMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  // Logout user
+  const handleLogout = () => {
+    logout(); // Clear session and update state
+    setAnchorEl(null); // Close the profile menu
+    navigate("/"); // Redirect to home
+  };
+
+  // Mobile drawer menu
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center', bgcolor: '#1A3636', height: '100%', color: 'white' }}>
-      <Typography color={'#FFD700'} variant="h5" component="div" sx={{ flexGrow: 1, padding: '1rem 0' }}>
+    <Box
+      onClick={handleDrawerToggle}
+      sx={{ textAlign: "center", bgcolor: "#1A3636", height: "100%", color: "white" }}
+    >
+      <Typography color={"#FFD700"} variant="h5" component="div" sx={{ flexGrow: 1, padding: "1rem 0" }}>
         AgriCart
       </Typography>
-      <ul className="mobile-navigation" style={{ listStyle: 'none', padding: 0 }}>
+      <ul className="mobile-navigation" style={{ listStyle: "none", padding: 0 }}>
+        {["Home", "Product", "About", "Contact"].map((text) => (
+          <li key={text}>
+            <Link
+              to={`/${text.toLowerCase()}`}
+              style={{ color: "white", textDecoration: "none", padding: "0.5rem", display: "block" }}
+            >
+              {text}
+            </Link>
+          </li>
+        ))}
+        {!isLoggedIn ? (
+          <>
+            <li>
+              <Link to="/signup" style={{ color: "white", textDecoration: "none", padding: "0.5rem", display: "block" }}>
+                SignUp
+              </Link>
+            </li>
+            <li>
+              <Link to="/login" style={{ color: "white", textDecoration: "none", padding: "0.5rem", display: "block" }}>
+                Login
+              </Link>
+            </li>
+          </>
+        ) : (
+          <>
+            <li>
+              <button
+                onClick={handleProfileMenuOpen}
+                style={{
+                  color: "white",
+                  background: "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: "0.5rem",
+                  display: "block",
+                  textAlign: "left",
+                }}
+              >
+                Profile
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={handleLogout}
+                style={{
+                  color: "white",
+                  background: "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: "0.5rem",
+                  display: "block",
+                  textAlign: "left",
+                }}
+              >
+                Logout
+              </button>
+            </li>
+          </>
+        )}
         <li>
-          <Link to={'/'} style={{ color: 'white', textDecoration: 'none', padding: '0.5rem', display: 'block' }}>
-            Home
-          </Link>
-        </li>
-        <li>
-          <Link to={'/product'} style={{ color: 'white', textDecoration: 'none', padding: '0.5rem', display: 'block' }}>
-            Product
-          </Link>
-        </li>
-        <li>
-          <Link to={'/about'} style={{ color: 'white', textDecoration: 'none', padding: '0.5rem', display: 'block' }}>
-            About
-          </Link>
-        </li>
-        <li>
-          <Link to={'/contact'} style={{ color: 'white', textDecoration: 'none', padding: '0.5rem', display: 'block' }}>
-            Contact
-          </Link>
-        </li>
-        <li>
-          <Link to={'/signup'} style={{ color: 'white', textDecoration: 'none', padding: '0.5rem', display: 'block' }}>
-            SignUp
-          </Link>
-        </li>
-        <li>
-          <Link to={'/login'} style={{ color: 'white', textDecoration: 'none', padding: '0.5rem', display: 'block' }}>
-            Login
-          </Link>
-        </li>
-        <li>
-          <Link to={'/cart'} style={{ color: 'white', textDecoration: 'none', padding: '0.5rem', display: 'block' }}>
+          <Link to="/cart" style={{ color: "white", textDecoration: "none", padding: "0.5rem", display: "block" }}>
             <ShoppingCartIcon />
           </Link>
         </li>
@@ -69,118 +129,109 @@ const Header = () => {
   return (
     <div>
       <Box>
-        <AppBar component={'nav'} sx={{ bgcolor: '#1A3636' }}>
+        <AppBar component={"nav"} sx={{ bgcolor: "#1A3636" }}>
           <Toolbar>
             <IconButton
               color="inherit"
               aria-label="open drawer"
               edge="start"
-              sx={{ mr: 2, display: { sm: 'none' } }}
+              sx={{ mr: 2, display: { sm: "none" } }}
               onClick={handleDrawerToggle}
             >
               <MenuIcon />
             </IconButton>
-            <AgricultureIcon sx={{ color: '#FFD700' }} /> {/* Update logo color */}
-            <Typography color={'#FFD700'} variant="h5" component="div">
+            <AgricultureIcon sx={{ color: "#FFD700" }} />
+            <Typography color={"#FFD700"} variant="h5" component="div">
               AgriCart
             </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' }, alignItems: 'center' }}>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", sm: "flex" }, alignItems: "center" }}>
               <TextField
                 variant="outlined"
                 size="small"
                 placeholder="Search..."
                 value={searchQuery}
-                onChange={handleSearchChange}
+                onChange={(event) => setSearchQuery(event.target.value)}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      <IconButton
-                        sx={{
-                          '&:hover': {
-                            color: '#FFD700', // Update search icon color
-                            transform: 'scale(1.1)',
-                            transition: 'all 0.3s ease-in-out',
-                          }
-                        }}
-                      >
-                        <SearchIcon />
+                      <IconButton>
+                        <SearchIcon sx={{ color: "#FFD700" }} />
                       </IconButton>
                     </InputAdornment>
                   ),
                 }}
-                sx={{ bgcolor: 'white', borderRadius: 1, mr: 2, ml: 2 }}
+                sx={{ bgcolor: "white", borderRadius: 1, mr: 2, ml: 2 }}
               />
-              <Box sx={{ flexGrow: 1, display: 'flex' }}>
-                <ul className="navigation-menu" style={{ display: 'flex', listStyle: 'none', padding: 0, margin: 0 }}>
-                  {['Home', 'Product', 'About', 'Contact'].map((text, index) => (
-                    <li key={index}>
-                      <Link
-                        to={`/${text.toLowerCase()}`}
-                        style={{ color: 'white', textDecoration: 'none', padding: '0.5rem', display: 'block' }}
-                        className="nav-link"
-                      >
-                        {text}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+              <Box sx={{ flexGrow: 1, display: "flex" }}>
+                {["Home", "Product", "About", "Contact"].map((text) => (
+                  <Link
+                    key={text}
+                    to={`/${text.toLowerCase()}`}
+                    style={{ color: "white", textDecoration: "none", padding: "0.5rem", display: "block" }}
+                  >
+                    {text}
+                  </Link>
+                ))}
               </Box>
-              <Box sx={{ display: 'flex' }}>
-                <ul className="navigation-menu" style={{ display: 'flex', listStyle: 'none', padding: 0, margin: 0 }}>
-                  {['SignUp', 'Login', 'Cart'].map((text, index) => (
-                    <li key={index}>
-                      <Link
-                        to={`/${text.toLowerCase()}`}
-                        style={{ color: 'white', textDecoration: 'none', padding: '0.5rem', display: 'block' }}
-                        className="nav-link"
-                      >
-                        {text === 'Cart' ? <ShoppingCartIcon
-                          sx={{
-                            '&:hover': {
-                              color: '#FFD700', // Update cart icon color
-                              transform: 'scale(1.1)',
-                              transition: 'all 0.3s ease-in-out',
-                            }
-                          }}
-                        /> : text}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </Box>
+              {isLoggedIn ? (
+                <>
+                  <IconButton
+                    edge="end"
+                    aria-label="account of current user"
+                    aria-haspopup="true"
+                    onClick={handleProfileMenuOpen}
+                    sx={{ color: "white" }}
+                  >
+                    <AccountCircle />
+                  </IconButton>
+                  <Menu
+                    anchorEl={anchorEl}
+                    open={Boolean(anchorEl)}
+                    onClose={handleProfileMenuClose}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                  >
+                    <MenuItem onClick={handleProfileMenuClose}>Profile</MenuItem>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                  </Menu>
+                </>
+              ) : (
+                <Box sx={{ display: "flex" }}>
+                  <Link to="/signup" style={{ color: "white", textDecoration: "none", padding: "0.5rem" }}>
+                    SignUp
+                  </Link>
+                  <Link to="/login" style={{ color: "white", textDecoration: "none", padding: "0.5rem" }}>
+                    Login
+                  </Link>
+                </Box>
+              )}
             </Box>
           </Toolbar>
         </AppBar>
-        <Box component="nav">
-          <Drawer
-            variant="temporary"
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            sx={{ display: { xs: 'block', sm: 'none' } }}
-            PaperProps={{
-              sx: {
-                bgcolor: '#1A3636',
-                color: 'white',
-              }
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Box>
+        <Drawer
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          sx={{ display: { xs: "block", sm: "none" } }}
+          PaperProps={{
+            sx: {
+              bgcolor: "#1A3636",
+              color: "white",
+            },
+          }}
+        >
+          {drawer}
+        </Drawer>
         <Box>
           <Toolbar />
         </Box>
       </Box>
-      <style jsx>{`
-        .mobile-navigation li a:hover,
-        .navigation-menu li a:hover {
-          background-color: rgba(255, 215, 0, 0.2);
-          border-radius: 4px;
-          box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-          transform: scale(1.05);
-          transition: all 0.3s ease-in-out;
-        }
-      `}</style>
     </div>
   );
 };

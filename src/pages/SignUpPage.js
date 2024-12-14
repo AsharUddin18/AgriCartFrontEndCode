@@ -50,7 +50,7 @@ function SignUp() {
 
     try {
       // Replace this URL with your backend signup API endpoint
-      const response = await fetch('http://192.168.1.147:8081/user/create', {
+      const response = await fetch('http://localhost:8081/user/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -172,5 +172,6 @@ export const SignUpPage = () => {
     <Layout>
       <SignUp />
     </Layout>
-  );
+  );
 };
+

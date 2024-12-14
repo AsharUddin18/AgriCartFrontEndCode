@@ -1,1 +1,1 @@
-export const CONSTFILE = "http://52.66.199.90:8081"
+export const CONSTFILE = "http://localhost:8081"
